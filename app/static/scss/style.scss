@@ -1,0 +1,63 @@
+@import "components";
+
+* {
+    box-sizing: border-box;
+    /*font-family: Sans-Serif;*/
+    font-family: Arial;
+    font-size: 8pt;
+}
+
+html, body {
+    padding: 0;
+    height: 100%;
+
+    background-color: #EEEEEE;
+}
+
+.container {
+    width: 60%;
+    margin: 8px auto;
+
+    background-color: white;
+    border: 1px solid darkgray;
+
+}
+.columns {
+    display: flex;
+
+    .left {
+        flex: 1;
+    }
+
+    .main {
+        flex: 3;
+    }
+
+    .right {
+        flex: 1;
+    }
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #003064;
+    color: white;
+    padding: 5px;
+    margin: 5px;
+}
+
+a {
+    color: #00309C;
+    text-decoration: none;
+
+    &:hover{
+        text-decoration: underline;
+    }
+}
+
+.link-list > a {
+    display: block;
+    padding-bottom: 2px;
+}

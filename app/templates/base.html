@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VATSIM Germany</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="SHORTCUT ICON" href="/static/img/favicon.ico">
+</head>
+<body>
+<div class="container">
+    <nav class="navbar">
+        <ul>
+            <li><a href="">Charts und Flughafeninformationen</a></li>
+            <li><a href="">Events</a></li>
+            <li><a href="">Forum</a></li>
+        </ul>
+    </nav>
+    <div class="columns">
+        <div class="left">
+            <div class="box">
+                <div class="box-title">Allgemein</div>
+                <div class="link-list">
+                    <a href="/">Home</a>
+                    <a href="/registration">Jetzt anmelden</a>
+                    <a href="/what_we_do">Was wir machen...</a>
+                    <a href="">Regeln</a>
+                    <a href="">SAG TV</a>
+                    <a href="">Mitglieder</a>
+                    <a href="">Staff</a>
+                    <a href="">VACC GER FIRs</a>
+                    <a href="">Forum</a>
+                    <a href="">Kontakt / Support</a>
+                    <a href="">Feedback</a>
+                    <a href="">Statistik</a>
+                    <a href="">Pressebereich</a>
+                    <a href="">Umfragen / Wahlen</a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-title">Piloten</div>
+                <div class="link-list">
+                    <a href="">Pilot Training Staff</a>
+                    <a href="">Erste Schritte</a>
+                    <a href="">Piloten Ausbildungs System</a>
+                    <a href="">Software</a>
+                    <a href="">Karten & Wetter</a>
+                    <a href="">Training Dokumente</a>
+                    <a href="">Partner Airlines</a>
+                    <a href="">VFR</a>
+                    <a href="">VATSIM Piloten Rating</a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="box-title">Lotsen</div>
+                <div class="link-list">
+                    <a href="">ATC Training Staff</a>
+                    <a href="">Erste Schritte</a>
+                    <a href="">Software</a>
+                    <a href="">Das Ausbildungssystem</a>
+                    <a href="">Training Dokumente</a>
+                    <a href="">CPT Anforderungen</a>
+                    <a href="">ATC Booking</a>
+                    <a href="">ATC Solo Freigaben</a>
+                    <a href="">AFIS Freigaben</a>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="box">
+                <div class="box-title">{% block body_title %}Main{% endblock %}</div>
+                {% block body %}Main{% endblock %}
+            </div>
+        </div>
+        <div class="right">
+            <div class="box">
+                <div class="box-title">Member Menü</div>
+                Mein Profil
+            </div>
+            <div class="box">
+                <div class="box-title">ATC Schedule</div>
+                <table>
+                    <tr>
+                        <td>Station</td>
+                        <td>von</td>
+                        <td>bis</td>
+                    </tr>
+                    {% for booking in atc_schedule() %}
+                        <tr>
+                            <td>{{ booking["callsign"] }}</td>
+                            <td>{{ booking["start"] }}</td>
+                            <td>{{ booking["end"] }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+            <div class="box">
+                <div class="box-title">Aktive Vatsim Server</div>
+                <table>
+                    <tr>
+                        <td>Name</td>
+                        <td>IP</td>
+                    </tr>
+                    <tr><td>CANADA</td><td>69.42.61.44</td></tr>
+                    <tr><td>GERMANY</td><td>212.67.73.150</td></tr>
+                    <tr><td>GERMANY2</td><td>212.227.11.18</td></tr>
+                    <tr><td>INDIA</td><td>139.59.2.4</td></tr>
+                    <tr><td>AUSTRALIA</td><td>180.200.247.40</td></tr>
+                    <tr><td>RUSSIA-W</td><td>84.52.109.230</td></tr>
+                    <tr><td>RUSSIA-C</td><td>94.73.241.65</td></tr>
+                    <tr><td>SINGAPORE</td><td>128.199.91.34</td></tr>
+                    <tr><td>SWEDEN</td><td>176.124.148.55</td></tr>
+                    <tr><td>UK1</td><td>178.79.154.95</td></tr>
+                    <tr><td>UK2</td><td>178.62.97.26</td></tr>
+                    <tr><td>USA-C</td><td>198.58.118.229</td></tr>
+                    <tr><td>USA-E</td><td>97.107.135.245</td></tr>
+                    <tr><td>USA-W</td><td>50.116.3.203</td></tr>
+                    <tr><td>UAE</td><td>185.93.245.200</td></tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <footer>
+        <span>Nur für Flugsimulationszwecke!</span>
+        <span>© VATSIM Germany 2005 - 2018</span>
+        <span>Impressum / Haftungsausschluss</span>
+    </footer>
+</div>
+</body>
+</html>
