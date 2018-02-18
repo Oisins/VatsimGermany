@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block body_title %}Login{% endblock %}
+{% block body %}
+    {% for member in members %}
+        <a href="/login/{{ member.id }}">Login {{ member.name }}</a><br>
+    {% endfor %}
+{% endblock %}

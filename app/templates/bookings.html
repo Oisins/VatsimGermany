@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block body_title %}Bookings{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style>
+        #add_booking {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 10px;
+        }
+    </style>
+
+{% endblock %}
+{% block body %}
+    <form method="POST" autocomplete="off">
+        <input type="hidden" name="booking_id" value="{{ booking_id }}"/>
+        <div class="box">
+            <div class="box-title">Add Booking</div>
+            <div id="add_booking">
+                <label>
+                    Member
+                    <input disabled type="text" value="{{ current_user.name }}"/>
+                </label>
+                <label>
+                    FIR
+                    {{ form.fir }}
+                </label>
+                <label>
+                    {{ form.date.label }}
+                    {{ form.date }}
+                </label>
+                <label>
+                    Station
+                    <select name="booking_station">
+                        <option selected value="153">EDAB_I_TWR</option>
+                        <option value="154">EDAC_I_TWR</option>
+                        <option value="746">EDAG_I_TWR</option>
+                        <option value="155">EDAH_TWR</option>
+                        <option value="747">EDAK_I_TWR</option>
+                        <option value="748">EDAU_I_TWR</option>
+                    </select>
+                </label>
+                <label>
+                    {{ form.start.label }}
+                    {{ form.start }}
+                    <b>UTC</b>
+                </label>
+                <label>
+                    Training
+                    <select class="inputfld" name="booking_training">
+                        <option value="Nein">Nein</option>
+                        <option value="Ja">Ja</option>
+                    </select>
+                </label>
+                <label>
+                    {{ form.end.label }}
+                    {{ form.end }}
+                    <b>UTC</b>
+                </label>
+                <label>
+                    Event
+                    <select class="inputfld" name="booking_event">
+                        <option selected value="0">Nein</option>
+                    </select>
+                </label>
+                <label>Voice
+                    {{ form.voice }}
+                </label>
+                <button type="submit">{% if editing %}Speichern{% else %}Erstellen{% endif %}</button>
+            </div>
+        </div>
+        <table>
+            <tr>
+                <th colspan="8">My Bookings</th>
+            </tr>
+            {% for booking in current_user.bookings %}
+                <tr>
+                    <td>{{ booking.is_voice }}</td>
+                    <td>{{ booking.date.strftime("%d.%m.%y") }}</td>
+                    <td>{{ booking.station }}</td>
+                    <td>{{ booking.member.name }}</td>
+                    <td>{{ booking.start.strftime("%H:%M") }}z</td>
+                    <td>{{ booking.end.strftime("%H:%M") }}z</td>
+                    <td><a href="?booking={{ booking.id }}">Edit</a></td>
+                    <td><a href="/bookings/delete/{{ booking.id }}">Delete</a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">Keine Buchungen</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        <table>
+            <tr>
+                <th colspan="6">All Bookings</th>
+            </tr>
+            {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.is_voice }}</td>
+                    <td>{{ booking.date.strftime("%d.%m.%y") }}</td>
+                    <td>{{ booking.station }}</td>
+                    <td>{{ booking.member.name }}</td>
+                    <td>{{ booking.start.strftime("%H:%M") }}z</td>
+                    <td>{{ booking.end.strftime("%H:%M") }}z</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </form>
+{% endblock %}

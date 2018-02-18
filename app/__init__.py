@@ -10,9 +10,6 @@ login_manager.session_protection = "strong"
 login_manager.login_view = "account.login"
 
 
-db = SQLAlchemy()
-
-
 def create_app(config_name):
     from app import routes
 
@@ -21,9 +18,15 @@ def create_app(config_name):
 
     config[config_name].init_app(app)
     login_manager.init_app(app)
+
+    from app.models import db, Member
     db.init_app(app)
     db.app = app
     db.create_all()
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return Member.query.get(user_id)
 
     for blueprint in routes.blueprints:
         app.register_blueprint(blueprint)

@@ -6,6 +6,8 @@
 
     <link rel="stylesheet" href="/static/css/style.css">
     <link rel="SHORTCUT ICON" href="/static/img/favicon.ico">
+
+    {% block head %}{% endblock %}
 </head>
 <body>
 <div class="container">
@@ -75,7 +77,9 @@
         <div class="right">
             <div class="box">
                 <div class="box-title">Member Menü</div>
-                Mein Profil
+                Mein Profil ({{ current_user.name }})<br>
+                <a href="/login">Login</a><br>
+                <a href="/logout">Logout</a>
             </div>
             <div class="box">
                 <div class="box-title">ATC Schedule</div>
@@ -92,6 +96,7 @@
                             <td>{{ booking["end"] }}</td>
                         </tr>
                     {% endfor %}
+                    <a href="/bookings">ATC Bookings</a>
                 </table>
             </div>
             <div class="box">

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import requests
+from datetime import timedelta
 from flask import request, get_flashed_messages, url_for
 import xml.etree.ElementTree as ET
 from datetime import datetime
@@ -11,7 +12,6 @@ def register_processors(app):
         def atc_schedule(fir="EDWW"):
             data = requests.get(f"http://vatbook.euroutepro.com/xml2.php?fir={fir}").text
             root = ET.fromstring(data)
-            bookings_data = root.findall("booking")
 
             bookings = []
 
@@ -28,4 +28,18 @@ def register_processors(app):
                     continue
             return bookings
 
-        return dict(atc_schedule=atc_schedule)
+        def time_range(start, end, step="00:01"):
+            start = datetime.strptime(start, "%H:%M")
+            end = datetime.strptime(end, "%H:%M")
+            step = datetime.strptime(step, "%H:%M")
+            delta = timedelta(hours=step.hour, minutes=step.minute)
+
+            current = start
+
+            while current <= end:
+                yield current.strftime("%H:%M")
+                current += delta
+
+            return end
+
+        return dict(atc_schedule=atc_schedule, time_range=time_range)
