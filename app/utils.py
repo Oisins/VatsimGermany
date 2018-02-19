@@ -10,7 +10,7 @@ def register_processors(app):
     @app.context_processor
     def utility_processor():
         def atc_schedule(fir="EDWW"):
-            data = requests.get(f"http://vatbook.euroutepro.com/xml2.php?fir={fir}").text
+            data = requests.get("http://vatbook.euroutepro.com/xml2.php?fir={}".format(fir)).text
             root = ET.fromstring(data)
 
             bookings = []
